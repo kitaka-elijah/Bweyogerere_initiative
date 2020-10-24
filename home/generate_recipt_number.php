@@ -39,6 +39,6 @@ function generateID($conn){
 
 $_SESSION["receipt_numberExists"] = generatEID($conn);
 
-// echo $_SESSION["receipt_numberExists"];
+//echo $_SESSION["receipt_numberExists"];
 
 ?>

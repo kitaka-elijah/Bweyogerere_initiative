@@ -28,6 +28,12 @@
 </script>
 <!--//end-smoth-scrolling-->
 </head>
+    <style>
+    
+          select,input{
+             text-transform: uppercase;
+        }
+    </style>
 <body >
 	<!--header-->
 	<div class="logo">
@@ -35,7 +41,7 @@
 			<div class="logo-info hidden.print">
 				<a><h1 style="font-size:48px;">
                   <!--  <img src="images/icon.png" width="100px">-->
-				   Bweyogerere Station Initiative  Membership Application Form
+				   BWEYOGERERE &emsp; ROOTS &emsp; INITIATIVE &emsp; (LTD)
                  <!--   <img src="images/flag.jpeg" width="100px">-->
 					</h1>
 				</a>

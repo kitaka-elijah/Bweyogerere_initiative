@@ -413,7 +413,20 @@ require('uniqid.php');
                             </div>
                <div class="form-group">
                                 <label for="cdc">CDC:</label>
-                                <input class="form-control text-box single-line" data-val="true" data-val-branch="Please enter a valid cdc." data-val-length="The field cdc must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="cdc is required" id="cdc" name="cdc" placeholder="Branch" type="text"  />
+                    <select class="form-control" data-val="true" data-val-number="The field Marital Status must be a number." required data-val-required="Marital Status is required" id="MaritalStatusID" name="cdc" required><option value="">-- Select CDC --</option>
+                        <option value="BOMBO">BOMBO</option>
+                        <option value="BUWOYA">BUWOYA</option>
+                        <option value="BWEYOGERERE">BWEYOGERERE</option>
+                        <option value="KALULE">KALULE</option>
+                        <option value="KIDS CARE">KIDS CARE</option>
+                        <option value="KIREKA SDA">KIREKA SDA</option>
+                        <option value="KITEGA">KITEGA</option>
+                        <option value="MAKULA">MAKULA</option>
+                        <option value="NAJANAKUMBI">NAJANAKUMBI</option>
+                        <option value="NKOOWE">NKOOWE</option>
+                        <option value="POTTER HOUSE">POTTER HOUSE</option>
+                    </select>
+                   
                                 <span class="field-validation-valid text-danger" data-valmsg-for="cdc" data-valmsg-replace="true"></span>
                             </div>
                            

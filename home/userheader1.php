@@ -1,5 +1,5 @@
-<?php 
-	session_start(); 
+<?php
+session_start(); 
 
 	if (!isset($_SESSION['username'])) {
 		$_SESSION['msg'] = "You must log in first";
@@ -13,14 +13,23 @@
 	}
 
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
     
-<title>Bweyogerere Stattion Initiative</title>
+<title>  BWEYOGERERE &emsp; ROOTS &emsp; INITIATIVE &emsp; (LTD)</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>  
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://www.jqueryscript.net/demo/Dialog-Modal-Dialogify/dist/dialogify.min.js"></script>
+
 <link href="css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
 <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
 <!-- Custom Theme files -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -43,6 +52,14 @@
 		});
 </script>
 <!--//end-smoth-scrolling-->
+    
+    <style>
+    
+       select,input{
+             text-transform: uppercase;
+        }
+       
+    </style>
 </head>
 <body>
 	<!--header-->
@@ -50,9 +67,9 @@
 		<div class="container">
 			<div class="logo-info">
 				<a><h1 style="font-size:48px;">
-                  <!--  <img src="images/icon.png" width="100px">-->
-				   Bweyogerere Station Initiative  Membership Application Form
-                 <!--   <img src="images/flag.jpeg" width="100px">-->
+                    <!--<img src="images/icon.png" width="100px">-->
+				   BWEYOGERERE &emsp; ROOTS &emsp; INITIATIVE &emsp; (LTD)
+                    <!--<img src="images/flag.jpeg" width="100px">-->
 					</h1>
 				</a>
 			</div>
@@ -66,26 +83,24 @@
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">Menu						
 				</button>
 			</div>
-			<!-- Collect the nav links, forms, and other content for toggling -->
+			<!--Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li class="hvr-bounce-to-bottom active"><a href="index.php">Home</a></li>
-				<!--	<li class="hvr-bounce-to-bottom"><a href="index.php">Driving Permit Application Guidelines</a></li>-->
+				<!--	<li class="hvr-bounce-to-bottom"><a href="#visaG">Driving Permit Application Guidelines</a></li>-->
+                    <li class="hvr-bounce-to-bottom"><a href="membership.php">Membership</a></li>
 					<li class="hvr-bounce-to-bottom"><a href="apply.php">Apply</a></li>
+                    
+                    
+                    
+                    
+                    
+                    
                     <li class="hvr-bounce-to-bottom"><a href="savings.php">Savings</a></li>
                      <li class="hvr-bounce-to-bottom"><a href="withdraw.php">With Draws</a></li>
-                    <li class="hvr-bounce-to-bottom"><a href="checkstatusscript.php">CheckStatus</a></li>   
-                  
-                    
-                     <li class="hvr-bounce-to-bottom dropdown-toggle" data-toggle ="dropdown" ><a href="edit_p_apply.php">Edit</a></li>
-                   
-                        
-                  
-            
-                  
-                    
+                    <li class="hvr-bounce-to-bottom"><a href="checkstatusscript.php">CheckStatus</a></li>     
+                     <li class="hvr-bounce-to-bottom dropdown-toggle"><a href="edit_p_apply.php">Edit</a></li>
                     <li class="hvr-bounce-to-bottom"> <a href="../index.php?logout='1'" style="background-color: pink;">logout</a> </li>
-
 				<!--	<li class="hvr-bounce-to-bottom"><a href="../index.php">Logout</a></li>-->
 				</ul>	
 				<div class="clearfix"> </div>

@@ -158,9 +158,6 @@ if($query->num_rows > 0){
                                 <h4><span style="color:black";>CDC :- </span>
                                 <?php  echo  strtoupper( $parents_cdc);?> </h4>                          
                                  
-                                <br/>
-                                <h4><span style="color:black";>Relationship:- </span>
-                                <?php  echo  strtoupper( $parents_relation_to_child);?> </h4>                          
                                 
                                 <br/>
                                 <h4><span style="color:black";>Date Of Registration:- <br></span>  

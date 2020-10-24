@@ -1,5 +1,6 @@
 <?php
-require('userheader1.php');?>
+require('userheader1.php');
+require('generate_recipt_number.php');?>
 
 
 

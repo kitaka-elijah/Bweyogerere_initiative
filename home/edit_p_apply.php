@@ -1,75 +1,209 @@
 <?php
 require('userheader1.php');
-
 require('connection.php');
-if (isset($_POST['parentsSreach'])) {
-    parentsSreach($mysqli);
+$username = $_SESSION['username'];
+
+ //Initalizing Parents Variables
+        $parents_id = "";
+        $surname = "";      
+        $firstname = "";
+        $nin="";
+        $phone_number="";
+        $gender ="";
+        $marital_status ="";
+        $occupation ="";
+        $day ="";
+        $month ="";
+        $year ="";
+        $location = "";
+        $religion = "";
+        $next_of_kin_surname = "";
+        $next_of_kin_firstname = "";
+        $next_of_kin_relationship = "";
+        $next_of_kin_telephone = "";
+        $account_number = "";
+        $bank = "";
+        $branch = "";
+        $cdc = "";
+        $photo = "";
+
+
+                
+function getPosts(){
+     $posts = array();
+     $posts[0]  = $_POST ['parents_id'];
+     $posts[1]  = $_POST ['surname'];
+     $posts[2]  = $_POST ['firstname'];
+     $posts[3]  = $_POST ['nin'];
+     $posts[4]  = $_POST ['phone_number'];
+     $posts[5]  = $_POST ['gender'];
+     $posts[6]  = $_POST ['marital_status'];
+     $posts[7] = $_POST ['occupation'];
+     $posts[8] = $_POST ['day'];
+     $posts[9] = $_POST ['month'];
+     $posts[10] = $_POST ['year'];
+     $posts[11] = $_POST ['location'];
+     $posts[12] = $_POST ['religion'];
+     $posts[13] = $_POST ['next_of_kin_surname'];
+     $posts[14] = $_POST ['next_of_kin_firstname'];
+     $posts[15] = $_POST ['relationship'];
+     $posts[16] = $_POST ['next_of_kin_telephone'];
+     $posts[17] = $_POST ['account_number'];
+     $posts[18] = $_POST ['bank'];
+     $posts[19] = $_POST ['branch'];
+     $posts[20] = $_POST ['cdc'];
+     //$posts[21] = $_POST ['photo'];
+        return $posts;
+    
+    
+    
+    
+    
+    
 }
-
-function parentsSreach(){
-$parents_id= $_POST["parents_id"];
-
-// Include the database configuration file
-include 'connection.php';
-
-// Get images from the database
-$query = $db->query("
-SELECT 
-preg.parents_id AS parents_id,
-preg.surname AS parents_surname,
-preg.firstname AS parents_firstname,
-preg.phone AS parents_phone_number,
-preg.cdc AS parents_cdc,
-preg.relationship AS parents_relation_to_child,
-preg.passport_photo AS parents_passport_photo,
-preg.date AS parents_Date_of_Reg,
-preg.time AS parents_tine_of_Reg,
-preg.status AS current_status
-FROM 
-parentReg preg 
-WHERE
- preg.parents_id = '$parents_id'
-");
-
-if($query->num_rows > 0){
-    while($row = $query->fetch_assoc()){
+if (isset($_POST['parentsSearch'])) {
+    $data = getPosts();
+    $search_Query = "SELECT * FROM parentReg WHERE parents_id ='$data[0]'"; 
+    $search_Results   = mysqli_query($conn,$search_Query);
+   // echo  $search_Query;
+   
+    
+    if ($search_Results){
         
-        //parent
-        $parentsimageURL = 'uploads/passport_photos/parents/'.$row["parents_passport_photo"];
-        $parents_id = $row["parents_id"];
-        $parents_surname = $row["parents_surname"];      
-        $parents_firstname = $row["parents_firstname"];     
-        $parents_phone_number=$row["parents_phone_number"];
-        $parents_cdc=$row['parents_cdc'];
-        $parents_relation_to_child=$row["parents_relation_to_child"];
-        $parents_passport_photo=$row["parents_passport_photo"];
-        $parents_Date_of_Reg=$row["parents_Date_of_Reg"];
-        $parents_tine_of_Reg=$row["parents_tine_of_Reg"];
-        $current_status=$row["current_status"];
+        if(mysqli_num_rows($search_Results)){
+            
+            while($row = mysqli_fetch_array($search_Results))
+            {
+                 $parents_id                        = $row['parents_id'];
+                 $surname                   = $row['surname'];
+                 $firstname                 = $row['firstname'];
+                 $nin                       = $row['nin'];
+                 $phone_number              = $row['phone'];
+                 $gender                    = $row['gender'];
+                 $marital_status            = $row['maritalstatus'];
+                 $occupation                = $row['occupation'];
+                 $day                       = $row['day'];
+                 $month                     = $row['month'];
+                 $year                      = $row['year'];
+                 $location                  = $row['location'];
+                 $religion                  = $row['religion'];
+                 $next_of_kin_surname       = $row['next_of_kin_surname'];
+                 $next_of_kin_firstname     = $row['next_of_kin_firstname'];
+                 $next_of_kin_relationship  = $row['relationship'];
+                 $next_of_kin_telephone     = $row['next_of_kin_telephone'];
+                 $account_number            = $row['account_number'];
+                 $bank                      = $row['bank'];
+                 $branch                    = $row['branch'];
+                 $cdc                       = $row['cdc'];
+                $photo                     = $row['passport_photo'];   
+            }
+            
+        }else{
+            echo "No Data found for this id ";
+        }
         
-   } 
+        
+    }else{
+        echo "Result Error";
+    }
 }
+
+
+
+
+///////////Update///////////
+if (isset($_POST['parentUpdate'])) {
+     $data = getPosts();
+     $Update_Query = "   
+     UPDATE `parentReg` 
+     SET 
+     `surname`='$data[1]',
+     `firstname`= '$data[2]',
+     `nin`= '$data[3]',
+     `phone`= '$data[4]',
+     `gender`= '$data[5]',
+     `maritalstatus`= '$data[6]',
+     `occupation`= '$data[7]' ,
+     `day`= '$data[8]',
+     `month`= '$data[9]',
+     `year`= '$data[10]',
+     `location`= '$data[11]',
+     `religion`= '$data[12]',
+     `next_of_kin_surname`= '$data[13]',
+     `next_of_kin_firstname`= '$data[14]',
+     `relationship`= '$data[15]',
+     `next_of_kin_telephone`= '$data[16]',
+     `account_number`= '$data[17]',
+     `bank`= '$data[18]',
+     `branch`= '$data[19]',
+     `cdc`= '$data[20]',
+     `edited_by` = '$username'
+     WHERE `parents_id` = '$data[0]'";
+     
+ 
+    try{
+        $Update_Result   = mysqli_query($conn,$Update_Query);
+        
+        if ($Update_Result){
+           if (mysqli_affected_rows($conn)>0){
+               echo 'Data Updated';
+               
+           }else {
+               echo 'Data Not Updated';
+           } 
+            
+        }
+        
+    }catch(Exception $ex){
+        
+        echo  'Error Update'.$ex->getMessage(); 
+    }
+   
+    
 }
+
 ?>
 
 
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12 tab-registration-container">
-        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 tab-registration-menu hidden-xs">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 tab-registration-menu hidden-xs">
  
 <div class="list-group">
             <a href="edit_p_apply.php" class="list-group-item active">
                 <text class=""><i class="fa fa-spinner"></i>Edit Parents</text>
             </a>
                     
-      <a href="edit_p_apply.php" class="list-group-item ">
+      <a href="edit_c1_apply.php" class="list-group-item ">
                 <text class=""><i class="fa fa-spinner"></i>Edit Child1</text>
             </a>
+     <a href="edit_c2_apply.php" class="list-group-item ">
+                <text class=""><i class="fa fa-spinner"></i>Edit Child2</text>
+            </a>
+     <a href="edit_c3_apply.php" class="list-group-item ">
+                <text class=""><i class="fa fa-spinner"></i>Edit Child3</text>
+            </a>
+     <a href="edit_c4_apply.php" class="list-group-item ">
+                <text class=""><i class="fa fa-spinner"></i>Edit Child4</text>
+            </a>
+     <a href="edit_c5_apply.php" class="list-group-item ">
+                <text class=""><i class="fa fa-spinner"></i>Edit Child5</text>
+            </a>
+     <a href="edit_c6_apply.php" class="list-group-item ">
+                <text class=""><i class="fa fa-spinner"></i>Edit Child6</text>
+            </a>
+     <a href="edit_c7_apply.php" class="list-group-item ">
+                <text class=""><i class="fa fa-spinner"></i>Edit Child7</text>
+            </a>
+     <a href="edit_c8_apply.php" class="list-group-item ">
+                <text class=""><i class="fa fa-spinner"></i>Edit Child8</text>
+            </a>
 
-            <a href="search_savings.php" class="list-group-item ">
+           <!-- <a href="search_savings.php" class="list-group-item ">
                 <text><i class=""></i>Search Savings</text>
             </a>
+            -->
 
 
             </div></div>
@@ -90,7 +224,7 @@ if($query->num_rows > 0){
             <br/>
              <div class="form-group">
                                 <label for="parentsID">Parents ID:</label><span style="color:red">&nbsp;<b>*</b></span>
-                                <input class="form-control text-box single-line" data-val="true" data-val-pid="Please enter a valid paernts id ." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="pid is required" id="parents id" name="parents_id"  type="text"   style="color:red; font-weight: bold;"; />
+                                <input class="form-control text-box single-line" data-val="true" data-val-pid="Please enter a valid paernts id ." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="pid is required" id="id" name="parents_id"  type="text" value ="<?php echo $parents_id;?>"   style="color:red; font-weight: bold;"; pattern="[^'\x22]+" title="Invalid input" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="surname" data-valmsg-replace="true"  ></span>
                             </div>
                             
@@ -100,14 +234,14 @@ if($query->num_rows > 0){
                                 <div class="col-md-6">
             <div class="form-group">
                                 <label for="surname">Surname:</label><span style="color:red">&nbsp;<b>*</b></span>
-                                <input class="form-control text-box single-line" data-val="true" data-val-surname="Please enter a valid Surname." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Surname is required" id="surname" name="surname" placeholder="Surname" type="text" value ="<?php echo $parents_surname;?>"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-surname="Please enter a valid Surname." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Surname is required" id="surname" name="surname" placeholder="Surname" type="text" value ="<?php echo $surname;?>"  />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="surname" data-valmsg-replace="true" > </span>
                             </div>
                  </div>
                   <div class="col-md-6">
             <div class="form-group has-feedback">
                                 <label for="firstname">First name:</label><span style="color:red">&nbsp;<b>*</b></span>
-                                <input class="form-control text-box single-line" data-val="true" data-val-firstname="Please enter a valid firstname." data-val-length="The field First name must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="firstname" name="firstname" placeholder="First name" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-firstname="Please enter a valid firstname." data-val-length="The field First name must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="firstname" name="firstname" placeholder="First name" type="text" value ="<?php echo $firstname;?>"   />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="First name" data-valmsg-replace="true"></span>
                             </div>
                  </div>
@@ -120,14 +254,14 @@ if($query->num_rows > 0){
                                 <div class="col-md-6">
             <div class="form-group">
                                 <label for="nin">NIN:</label>
-                                <input class="form-control text-box single-line" data-val="true" data-val-nin="Please enter a valid nin." data-val-length="The field NIN must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="nin is required" id="nin" name="nin" placeholder="NIN" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-nin="Please enter a valid nin." data-val-length="The field NIN must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="nin is required" id="nin" name="nin" placeholder="NIN" type="text"  value ="<?php echo $nin;?>"  />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="nin" data-valmsg-replace="true"></span>
                             </div>
                  </div>
                   <div class="col-md-6">
             <div class="form-group has-feedback">
                                 <label for="Telephone">Telephone:</label><span style="color:red">&nbsp;<b>*</b></span>
-                                <input class="form-control text-box single-line" data-val="true" data-val-Telephone="Please enter a valid Telephone." data-val-length="The field Telephone must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="phone" name="phone" placeholder="Telephone" type="text" pattern="[0-9]{4}[0-9]{3}[0-9]{3}"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-Telephone="Please enter a valid Telephone." data-val-length="The field Telephone must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="phone" name="phone_number" placeholder="Telephone" type="text" pattern="[0-9]{4}[0-9]{3}[0-9]{3}"  value ="<?php echo $phone_number;?>"  />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="Telephone" data-valmsg-replace="true"></span>
                             </div>
                  </div>
@@ -137,38 +271,28 @@ if($query->num_rows > 0){
             
             
              <div class="row">
-                                <div class="col-md-8">
-                                    <label for="GenderID">Gender</label><span style="color:red">&nbsp;<b>*</b></span>
-                                    <div class="form-inline required">
-                                        <div class="form-group has-feedback">
-                                            <label class="input-group">
-                                                <span class="input-group-addon"><input name="gender" value="Male" type="radio"  title="One of these options is required"></span>
-                                                <div class="form-control form-control-static"> Male</div>
-                                                <span class="glyphicon form-control-feedback"></span>
-                                            </label>
-                                        </div>
-                                        <div class="form-group has-feedback ">
-                                            <label class="input-group">
-                                                <span class="input-group-addon"><input name="gender" value="Female" type="radio" ></span>
-                                                <div class="form-control form-control-static"> Female</div>
-                                                <span class="glyphicon form-control-feedback "></span>
-                                            </label>
-                                        </div>
-                                        <span class="field-validation-valid text-danger" data-valmsg-for="GenderID" data-valmsg-replace="true"></span>
-                                    </div>
+                                
+                                   
+                    <div class="col-md-6">
+            <div class="form-group has-feedback">
+                                <label for="Telephone">Gender:</label><span style="color:red">&nbsp;<b>*</b></span>
+                                <input class="form-control text-box single-line" data-val="true" data-val-Telephone="Please enter a valid Gender." data-val-length="The field Telephone must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Gender is required" id="gender" name="gender" placeholder="Gender" type="text"   value ="<?php echo $gender;?>"  />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Telephone" data-valmsg-replace="true"></span>
+                            </div>
                  </div>
-                 <div class="col-md-4">
+                 
+                 
+                 
+                 
+              
+                 <div class="col-md-6">
                             
-                                    <div class="form-group"><span style="color:red">&nbsp;<b>*</b></span>
-                                        <label for="MaritalStatusID">Marital Status</label>
-                                        <select class="form-control" data-val="true" data-val-number="The field Marital Status must be a number."  data-val-required="Marital Status is required" id="MaritalStatusID" name="maritalstatus" ><option value="">-- Select Status --</option>
-<option value="Single">Single</option>
-<option value="Married">Married</option>
-<option value="Divorced">Divorced</option>
-<option value="Widowed">Widowed</option>
-</select>
-                                        <span class="field-validation-valid text-danger" data-valmsg-for="MaritalStatusID" data-valmsg-replace="true"></span>
-                                    </div>
+                                      <div class="form-group has-feedback">
+                                <label for="Telephone">Marital Status:</label><span style="color:red">&nbsp;<b>*</b></span>
+                                <input class="form-control text-box single-line" data-val="true" data-val-Telephone="Please enter a valid Gender." data-val-length="The field Telephone must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Gender is required" id="MaritalStatus" name="marital_status" placeholder="Marital Status" type="text"   value ="<?php echo $marital_status;?>"  />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="Telephone" data-valmsg-replace="true"></span>
+                            </div>
+                     
                                 </div>
                             </div>
             
@@ -182,8 +306,8 @@ if($query->num_rows > 0){
                 
                 
                     <label for="firstname">Occupation:</label><span style="color:red">&nbsp;<b>*</b></span>
-                                <input class="form-control text-box single-line" data-val="true" data-val-ocucupation="Please enter a valid occupation." data-val-length="The field Occupation must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="occupation" name="occupation" placeholder="Occupation" type="text"  />
-                                <span class="field-validation-valid text-danger" data-valmsg-for="First name" data-valmsg-replace="true"></span>
+                                <input class="form-control text-box single-line" data-val="true" data-val-ocucupation="Please enter a valid occupation." data-val-length="The field Occupation must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="occupation" name="occupation" placeholder="Occupation" type="text"  value ="<?php echo $occupation;?>" />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="occupation" data-valmsg-replace="true"></span>
                          
                 
                 
@@ -196,181 +320,16 @@ if($query->num_rows > 0){
                                                  <label for="BirthDate2">Birth Date</label><span style="color:red">&nbsp;*</span>
                                         <div class="input-group">
                                             
-                                            <select class="form-control"  data-val="true" data-val-number="The field Day must be a number." data-val-required="Day required." id="Day" name="day" style="width:72px;"><option value="">Day</option>
+                                          
                                                 
+                                                <input class="form-control text-box single-line" data-val="true" data-val-ocucupation="Please enter a valid occupation." data-val-length="The field Day must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="occupation" name="day" placeholder="Day" type="text"  value ="<?php echo $day;?>"  style="width:72px;" />
+                                            
+                                             <input class="form-control text-box single-line" data-val="true" data-val-ocucupation="Please enter a valid occupation." data-val-length="The field Day must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="occupation" name="month" placeholder="Month" type="text"  value ="<?php echo $month;?>"  style="width:200px;" />
+                                                
+                                                <input class="form-control text-box single-line" data-val="true" data-val-ocucupation="Please enter a valid occupation." data-val-length="The field Day must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="occupation" name="year" placeholder="Year" type="text"  value ="<?php echo $year;?>"  style="width:82px;" />  
 
 
-<option value='1'>1</option>
-<option value='2'>2</option>
-<option value='3'> 3</option>
-<option value='4'>4</option>
-<option value='5'>5</option>
-<option value='6'>6</option>
-<option value='7'>7</option>
-<option value='8'>8</option>
-<option value='9'> 9</option>
-<option value='10'>10</option>
-<option value='11'>11</option>
-<option value='12'>12</option>
-<option value='13'>13</option>
-<option value='14'> 14</option>
-<option value='15'>15</option>
-<option value='16'>16</option>
-<option value='17'>17</option>
-<option value='18'>18</option>
-<option value='19'>19</option>
-<option value='20'>20</option>
-<option value='21'>21</option>
-<option value='22'>22</option>
-<option value='23'>23</option>
-<option value='24'>24</option>
-<option value='25'>25</option>
-<option value='26'>26</option>
-<option value='27'>27</option>
-<option value='28'>28</option>
-<option value='29'>29</option>
-<option value='30'>30</option>
-<option value='31'>31</option>
-</select>
-                                            <select class="form-control"  data-val="true" data-val-number="The field Month must be a number." data-val-required="Month required." id="Month" name="month" style="width:122px;"><option value="">Month</option>
-<option value="January">January</option>
-<option value="February">February</option>
-<option value="March">March</option>
-<option value="April">April</option>
-<option value="May">May</option>
-<option value="June">June</option>
-<option value="July">July</option>
-<option value="August">August</option>
-<option value="September">September</option>
-<option value="October">October</option>
-<option value="November">November</option>
-<option value="December">December</option>
-</select>
-                                            <select class="form-control" data-val="true" data-val-number="The field Year must be a number." data-val-required="Year required." id="Year" name="year" style="width:82px;"><option value="">Year</option>
-
-<option value="2019">2019</option>
-<option value="2018">2018</option>
-<option value="2017">2017</option>
-<option value="2016">2016</option>
-<option value="2015">2015</option>
-<option value="2014">2014</option>
-<option value="2013">2013</option>
-<option value="2012">2012</option>
-<option value="2011">2011</option>
-<option value="2010">2010</option>
-<option value="2009">2009</option>
-<option value="2008">2008</option>
-<option value="2007">2007</option>
-<option value="2006">2006</option>
-<option value="2005">2005</option>
-<option value="2004">2004</option>
-<option value="2003">2003</option>
-<option value="2002">2002</option>
-<option value="2001">2001</option>
-<option value="2000">2000</option>
-<option value="1999">1999</option>
-<option value="1998">1998</option>
-<option value="1997">1997</option>
-<option value="1996">1996</option>
-<option value="1995">1995</option>
-<option value="1994">1994</option>
-<option value="1993">1993</option>
-<option value="1992">1992</option>
-<option value="1991">1991</option>
-<option value="1990">1990</option>
-<option value="1989">1989</option>
-<option value="1988">1988</option>
-<option value="1987">1987</option>
-<option value="1986">1986</option>
-<option value="1985">1985</option>
-<option value="1984">1984</option>
-<option value="1983">1983</option>
-<option value="1982">1982</option>
-<option value="1981">1981</option>
-<option value="1980">1980</option>
-<option value="1979">1979</option>
-<option value="1978">1978</option>
-<option value="1977">1977</option>
-<option value="1976">1976</option>
-<option value="1975">1975</option>
-<option value="1974">1974</option>
-<option value="1973">1973</option>
-<option value="1972">1972</option>
-<option value="1971">1971</option>
-<option value="1970">1970</option>
-<option value="1969">1969</option>
-<option value="1968">1968</option>
-<option value="1967">1967</option>
-<option value="1966">1966</option>
-<option value="1965">1965</option>
-<option value="1964">1964</option>
-<option value="1963">1963</option>
-<option value="1962">1962</option>
-<option value="1961">1961</option>
-<option value="1960">1960</option>
-<option value="1959">1959</option>
-<option value="1958">1958</option>
-<option value="1957">1957</option>
-<option value="1956">1956</option>
-<option value="1955">1955</option>
-<option value="1954">1954</option>
-<option value="1953">1953</option>
-<option value="1952">1952</option>
-<option value="1951">1951</option>
-<option value="1950">1950</option>
-<option value="1949">1949</option>
-<option value="1948">1948</option>
-<option value="1947">1947</option>
-<option value="1946">1946</option>
-<option value="1945">1945</option>
-<option value="1944">1944</option>
-<option value="1943">1943</option>
-<option value="1942">1942</option>
-<option value="1941">1941</option>
-<option value="1940">1940</option>
-<option value="1939">1939</option>
-<option value="1938">1938</option>
-<option value="1937">1937</option>
-<option value="1936">1936</option>
-<option value="1935">1935</option>
-<option value="1934">1934</option>
-<option value="1933">1933</option>
-<option value="1932">1932</option>
-<option value="1931">1931</option>
-<option value="1930">1930</option>
-<option value="1929">1929</option>
-<option value="1928">1928</option>
-<option value="1927">1927</option>
-<option value="1926">1926</option>
-<option value="1925">1925</option>
-<option value="1924">1924</option>
-<option value="1923">1923</option>
-<option value="1922">1922</option>
-<option value="1921">1921</option>
-<option value="1920">1920</option>
-<option value="1919">1919</option>
-<option value="1918">1918</option>
-<option value="1917">1917</option>
-<option value="1916">1916</option>
-<option value="1915">1915</option>
-<option value="1914">1914</option>
-<option value="1913">1913</option>
-<option value="1912">1912</option>
-<option value="1911">1911</option>
-<option value="1910">1910</option>
-<option value="1909">1909</option>
-<option value="1908">1908</option>
-<option value="1907">1907</option>
-<option value="1906">1906</option>
-<option value="1905">1905</option>
-<option value="1904">1904</option>
-<option value="1903">1903</option>
-<option value="1902">1902</option>
-<option value="1901">1901</option>
-<option value="1900">1900</option>
-<option value="1899">1899</option>
-
-</select>
+                                          
                                             
                                         </div>
                                         <span class="field-validation-valid text-danger" data-valmsg-for="BirthDate2" data-valmsg-replace="true"></span>
@@ -392,14 +351,14 @@ if($query->num_rows > 0){
                                 <div class="col-md-6">
             <div class="form-group">
                                 <label for="location">Physical Address:</label><span style="color:red">&nbsp;<b>*</b></span>
-                                <input class="form-control text-box single-line" data-val="true" data-val-location="Please enter a valid location." data-val-length="The field location must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Surname is required" id="location" name="location" placeholder="Location" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-location="Please enter a valid location." data-val-length="The field location must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="Surname is required" id="location" name="location" placeholder="Location" type="text" value ="<?php echo $location;?>"  />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="location" data-valmsg-replace="true"></span>
                             </div>
                  </div>
                   <div class="col-md-6">
             <div class="form-group has-feedback">
                                 <label for="religion">Religion:</label>
-                                <input class="form-control text-box single-line" data-val="true" data-val-religion="Please enter a valid religion." data-val-length="The field religion must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="religion" name="religion" placeholder="Religion" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-religion="Please enter a valid religion." data-val-length="The field religion must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="religion" name="religion" placeholder="Religion" type="text" value ="<?php echo $religion;?>"   />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="religion" data-valmsg-replace="true"></span>
                             </div>
                  </div>
@@ -423,14 +382,14 @@ if($query->num_rows > 0){
                                 <div class="col-md-6">
             <div class="form-group">
                                 <label for="next_of_kin_surname">Next Of Kin Surname:</label><span style="color:red">&nbsp;<b>*</b></span>
-                                <input class="form-control text-box single-line" data-val="true" data-val-surname="Please enter a valid next_of_kin_surname." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="next_of_kin_surname is required" id="next_of_kin_surname" name="next_of_kin_surname" placeholder="Next_of_kin_Surname" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-surname="Please enter a valid next_of_kin_surname." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="next_of_kin_surname is required" id="next_of_kin_surname" name="next_of_kin_surname" placeholder="Next_of_kin_Surname" type="text" value ="<?php echo $next_of_kin_surname;?>" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="next_of_kin_surname" data-valmsg-replace="true"></span>
                             </div>
                  </div>
                   <div class="col-md-6">
             <div class="form-group has-feedback">
                                 <label for="next_of_kin_firstname">Next Of Kin First name:</label><span style="color:red">&nbsp;<b>*</b></span>
-                                <input class="form-control text-box single-line" data-val="true" data-val-next_of_kin_firstname="Please enter a valid next_of_kin_firstname." data-val-length="The field First name must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="next_of_kin_firstname" name="next_of_kin_firstname" placeholder="Next Of Kin Firstname" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-next_of_kin_firstname="Please enter a valid next_of_kin_firstname." data-val-length="The field First name must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="next_of_kin_firstname" name="next_of_kin_firstname" placeholder="Next Of Kin Firstname" type="text" value ="<?php echo $next_of_kin_firstname;?>" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="next_of_kin_firstname" data-valmsg-replace="true"></span>
                             </div>
                  </div>
@@ -442,14 +401,14 @@ if($query->num_rows > 0){
                                 <div class="col-md-6">
             <div class="form-group">
                                 <label for="next_of_kin_relationship">Next of Kin Relationship with Member:</label><span style="color:red">&nbsp;<b>*</b></span>
-                                <input class="form-control text-box single-line" data-val="true" data-val-surname="Please enter a valid next_of_kin_relationship." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="next_of_kin_relationship is required" id="next_of_kin_relationship" name="relationship" placeholder="next_of_kin_relationship" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-surname="Please enter a valid next_of_kin_relationship." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="next_of_kin_relationship is required" id="next_of_kin_relationship" name="relationship" placeholder="next_of_kin_relationship" type="text"  value ="<?php echo $next_of_kin_relationship;?>" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="next_of_kin_relationship" data-valmsg-replace="true"></span>
                             </div>
                  </div>
                   <div class="col-md-6">
             <div class="form-group has-feedback">
                                 <label for="next_of_kin_telephone">Next Of Kin Telphone number:</label><span style="color:red">&nbsp;<b>*</b></span>
-                                <input class="form-control text-box single-line" data-val="true" data-val-next_of_kin_telephone="Please enter a valid next_of_kin_telephone." data-val-length="The field next_of_kin_telephone must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="next_of_kin_telephone is required" id="next_of_kin_telephone" name="next_of_kin_telephone" placeholder="next_of_kin_telephone" type="text" pattern="[0-9]{4}[0-9]{3}[0-9]{3}" />
+                                <input class="form-control text-box single-line" data-val="true" data-val-next_of_kin_telephone="Please enter a valid next_of_kin_telephone." data-val-length="The field next_of_kin_telephone must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="next_of_kin_telephone is required" id="next_of_kin_telephone" name="next_of_kin_telephone" placeholder="next_of_kin_telephone" type="text" pattern="[0-9]{4}[0-9]{3}[0-9]{3}"   value ="<?php echo $next_of_kin_telephone;?>"/>
                                 <span class="field-validation-valid text-danger" data-valmsg-for="next_of_kin_telephone" data-valmsg-replace="true"></span>
                             </div>
                  </div>
@@ -468,7 +427,7 @@ if($query->num_rows > 0){
             
              <div class="form-group">
                                 <label for="account_number">Account No:</label>
-                                <input class="form-control text-box single-line" data-val="true" data-val-pid="Please enter a valid account_number id ." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="account_numberis required" id="account_number" name="account_number" placeholder="account_number" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-pid="Please enter a valid account_number id ." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="account_numberis required" id="account_number" name="account_number" placeholder="account_number" type="text"  value ="<?php echo $account_number;?>"  />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="account_number" data-valmsg-replace="true"></span>
                             </div>
                             
@@ -476,49 +435,26 @@ if($query->num_rows > 0){
             
             <div class="form-group">
                                 <label for="bank">Bank:</label>
-                                <input class="form-control text-box single-line" data-val="true" data-val-bank="Please enter a valid bank." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="bank is required" id="bank" name="bank" placeholder="Bank" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-bank="Please enter a valid bank." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="bank is required" id="bank" name="bank" placeholder="Bank" type="text"  value ="<?php echo $bank;?>" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="bank" data-valmsg-replace="true"></span>
                             </div>
             <div class="form-group">
                                 <label for="branch">Branch:</label>
-                                <input class="form-control text-box single-line" data-val="true" data-val-branch="Please enter a valid branch." data-val-length="The field branch must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="branch" name="branch" placeholder="Branch" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-branch="Please enter a valid branch." data-val-length="The field branch must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="First name is required" id="branch" name="branch" placeholder="Branch" type="text"  value ="<?php echo $branch;?>" />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="branch" data-valmsg-replace="true"></span>
                             </div>
                <div class="form-group">
                                 <label for="cdc">CDC:</label>
-                                <input class="form-control text-box single-line" data-val="true" data-val-branch="Please enter a valid cdc." data-val-length="The field cdc must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="cdc is required" id="cdc" name="cdc" placeholder="Branch" type="text"  />
+                                <input class="form-control text-box single-line" data-val="true" data-val-branch="Please enter a valid cdc." data-val-length="The field cdc must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="cdc is required" id="cdc" name="cdc" placeholder="Branch" type="text"  value ="<?php echo $cdc;?>"  />
                                 <span class="field-validation-valid text-danger" data-valmsg-for="cdc" data-valmsg-replace="true"></span>
                             </div>
                                     
                                     </div>
                                  
                      <div class="col-sm-4">
-                        <h6 class="page-header"><a href="#">Applicant's Next of Kin and Accounts infomation</a></h6>
+                        <h6 class="page-header"><a href="#">Find and Delete Buttons</a></h6>
        
-            <h4><b>Next Of Kin Information</b></h4><br/>
-            
-                                    
-                                    
-                                                     <div class="box box-default">
-                       
-                        <div class="box-body" style="display: block;">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h6 style="margin-bottom:0px;">Applicant passport size photo </h6>
-                                    <i style="font-size:15px;">(Supported types are <b>'jpeg/png'</b>, size = 300KB max)</i>
-                                    <div class="form-group">
-                                        <span class="field-validation-valid text-danger" data-valmsg-for="Photo" data-valmsg-replace="true"></span>
-                                        <p class=""><img id="photoImg" src="images/ppdami.jpg" alt="your photo" style="height:200px;" class="img-thumbnail img-responsive"></p>
-                                        <input type="file" name="file">
-                  <input type="submit" name="submit" value="Upload" accept=".jpeg,.png" data-val="true" data-val-filesize="File size should be less than 300KB" data-val-filesize-maxbytes="300720" data-val-filetype="Only the following file types are allowed: png or jpg or jpeg" data-val-filetype-validtypes="png,jpg,jpeg" id="Photo" name="Photo" required="required" title="Photo is required"  />
-                                    </div>
-                                </div>
-                               
-                               
-
-                                            </div>
-                                    </div><br />
-                            </div>
+                     
                    
                                     
                                     
@@ -527,62 +463,90 @@ if($query->num_rows > 0){
                                     
                            
    <div class="box-footer">
-   <button name="parentsSreach" id ="StartNewApplication" value="saveContinue" type="submit" class="btn btn-primary btn-label-next pull-left" style="border-radius: 0;">
-     | Search |
+   <button name="parentsSearch" id ="parentsSearch" value="Find" type="submit" class="btn btn-primary btn-label-next pull-left" style="border-radius: 0;">
+     | Find |
      <i class="fa fa-share"></i>
      </button>
      </div>
-           </form>                   
+                       
                          
         <div class="box-footer">
-       <button name="parentReg" id ="StartNewApplication" value="saveContinue" type="submit" class="btn btn-primary btn-label-next pull-right" style="border-radius: 0;">
+       <button name="parentUpdate" id ="parentUpdate" value="Edit" type="submit" class="btn btn-primary btn-label-next pull-right" style="border-radius: 0;">
      | Edit |
      <i class="fa fa-share"></i>
      </button>
             
-
+            
+    <!--                     </div>   </div></div>
+     <div class="box-footer">
+       <button name="parentReg" id ="StartNewApplication" value="saveContinue" type="submit" class="btn btn-primary btn-label-next pull-right" style="border-radius: 0;">
+     | Delete |
+     <i class="fa fa-share"></i>
+     </button>
+            
+-->
                                   
+                               
                                     
+         </form>       
+                                    </div></div>
                                     
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
+                 <div class="col-sm-4">
+                        <h6 class="page-header"><a href="#">Edit Parents Passport Photo</a></h6>
+                     
+                     
+                            
+                     
+                      <form action="parents_pic_edit.php" method="post" enctype="multipart/form-data" class="md-form" class="work-request" enctype="multipart/form-data" id="docUpload" >
+                    
+  <div class="form-group">
+                                <label for="parentsID">Parents ID:</label><span style="color:red">&nbsp;<b>*</b></span>
+                                <input class="form-control text-box single-line" data-val="true" data-val-pid="Please enter a valid paernts id ." data-val-length="The field Email must be a string with a maximum length of 100." data-val-length-max="100" data-val-required="pid is required" id="id" name="parents_id"  type="hidden" value ="<?php echo $parents_id;?>"   style="color:red; font-weight: bold;"; readonly />
+                                <span class="field-validation-valid text-danger" data-valmsg-for="surname" data-valmsg-replace="true"  ></span>
                             </div>
-                </div>
+                     
+                     
+                      
+
+                
+                
+                
+                  
+           
+                       
+                        <div class="box-body" style="display: block;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 style="margin-bottom:0px;">Applicant passport size photo </h6>
+                                    <i style="font-size:15px;">(Supported types are <b>'jpeg/png'</b>, size = 300KB max)</i>
+                                    <div class="form-group">
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="Photo" data-valmsg-replace="true"></span>
+                                        <p class=""><img id="photoImg" src="uploads/passport_photos/parents/<?php echo $photo;?>" alt="Passport Photo will appear after parents Id is found. Use the Parents Id and then Press Find to Search Photo" style="height:200px;" class="img-thumbnail img-responsive"></p>
+                                        <input type="file" name="file">
+                                        <!--
+                  <input type="submit" name="submit" value="Upload" accept=".jpeg,.png" data-val="true" data-val-filesize="File size should be less than 300KB" data-val-filesize-maxbytes="300720" data-val-filetype="Only the following file types are allowed: png or jpg or jpeg" data-val-filetype-validtypes="png,jpg,jpeg" id="Photo" name="Photo" required="required" title="Photo is required"  />-->
+                                    </div>
+                              
+                             
+                
+                
+                
+                
+                
+                
                     
-                    
-                </div>
+                
+
             </div>
         </div>
-    
-    
-    
-    
-    
-                          
-
+      
+    </div>
+            <div class="col-sm-6">
+                <div class="box-footer">
+                    <button name="submit" id ="Photo" value="saveContinue" type="submit" class="btn btn-primary btn-label-next pull-right" style="border-radius: 0;">
+                                    | Edit Passport Photo |
+                                    <i class="fa fa-share"></i>
+                                </button>
+                    
+                   
+              
