@@ -106,64 +106,54 @@ require('uniqid.php');
 	</div>	
     <!--//navigation-->
     
-<h3><?php echo $_SESSION['username']; ?></h3>
-	<!--baner-->
-	<div class="baner">
-		<div class="container">
-			<div class="baner-grids">
-				<div class="col-md-12 baner-top">
-					<figure class="effect-bubba">
-						<img src="images/bg/DSC_6628.jpg" alt="" height=/>
-						<figcaption>
-							<h4></h4>
-							<p>Makerere Police Station Managment System </p>	
-						</figcaption>			
-					</figure>	
-				</div>
-					<div class="clearfix"> </div>
-				</div>				
-			</div>
-		</div>
-	</div>
-	<!--//baner-->
-	<!-- news -->
-
-<!---
-	<div class="news-info">
-		<div class="container">		
-			<h3 class="title" style="color:royalblue";>Types Of Permits</h3>
-		</div>
-	</div>
-	<!-- container -->
-	<!-- <div class="container">				
-		<div class="news">	
-			<div class="news-grids">
-				<div class="col-md-12 news-grid">
-        --->
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12 module-content">
+        <div class="row">
+            <div class="col-sm-6" style="text-align:justify">
+               
+                
+                <form action="oc_check_script.php" method="post" enctype="multipart/form-data" class="md-form" class="work-request" enctype="multipart/form-data" id="docUpload" >
                     
-                <?php //require('type.php');?>
 
+                    
+                    
+                    
+                    <h6 class="page-header">
+                    <a href="#">OC Search for the case</a>
+                </h6>
 
-		<!--		</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div><!-- //container -->	
-<!--	</div>
-	
-	<div class="copy">
-		<div class="container">
-			<div class="copy-left">
-				<p>Copyright © 2019 </p>
-			</div>
-			<div class="social-icons">
-				<ul>
-					<li><a href="#" class="fb"></a></li>
-					<li><a href="#"></a></li>
-					<li><a href="#" class="gg"></a></li>
-					<li><a href="#" class="pn"></a></li>					
-				</ul>	
-			</div>
-			<div class="clearfix"> </div>
-		</div>
-	</div>
-	<?php require('footerscript.php');
+               <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="Parent Application Id">Case Ref Id</label>
+                                        <input class="form-control text-box single-line"  name="caseid" placeholder="Enter case ref id  " type="text" value="" required />
+                                        <span class="field-validation-valid text-danger" data-valmsg-for="parents_id" data-valmsg-replace="true"></span>
+                                    </div>
+                                </div>
+                
+                
+                
+                <p>Date <br><b><?php echo $date=date("d/m/Y");?></b></p>
+              
+                     
+                    
+                    
+                    
+            </div>
+          </div>
+        <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6">
+                <div class="box-footer">
+                    <button name="submit" id ="Photo" value="saveContinue" type="submit" class="btn btn-primary btn-label-next pull-right" style="border-radius: 0;">
+                                    | Search for case  |
+                                    <i class="fa fa-share"></i>
+                                </button>
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+        </form>
+</div>
+<hr/>

@@ -17,7 +17,7 @@ session_start();
 <html>
 <head>
     
-<title>Bweyogerere Station Initiative</title>
+<title>Kymbowa Estate</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
@@ -67,7 +67,7 @@ session_start();
 			<div class="logo-info">
 				<a><h1 style="font-size:48px;">
                     <!--<img src="images/icon.png" width="100px">-->
-				   BWEYOGERERE &emsp; ROOTS &emsp; INITIATIVE &emsp; (LTD)
+				   Kymbowa &emsp; Estate &emsp; Management &emsp; System
                     <!--<img src="images/flag.jpeg" width="100px">-->
 					</h1>
 				</a>
@@ -87,7 +87,7 @@ session_start();
 				<ul class="nav navbar-nav">
 					<li class="hvr-bounce-to-bottom active"><a href="index.php">Home</a></li>
 				<!--	<li class="hvr-bounce-to-bottom"><a href="#visaG">Driving Permit Application Guidelines</a></li>-->
-					<li class="hvr-bounce-to-bottom"><a href="apply.php">Apply</a></li>
+					<li class="hvr-bounce-to-bottom"><a href="index_01.php">Estate</a></li>
                     				<!--	<li class="hvr-bounce-to-bottom"><a href="checkstatusscript.php">CheckStatus</a></li>--->
                     <li class="hvr-bounce-to-bottom" ><a href="../index.php?logout='1'" style="color: red;">logout</a> </li>
 

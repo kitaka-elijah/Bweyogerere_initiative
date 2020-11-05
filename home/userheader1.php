@@ -17,7 +17,7 @@ session_start();
 <html>
 <head>
     
-<title>  BWEYOGERERE &emsp; ROOTS &emsp; INITIATIVE &emsp; (LTD)</title>
+<title>  Kymbowa  &emsp; Estate &emsp;  &emsp; </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
   <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
@@ -68,7 +68,7 @@ session_start();
 			<div class="logo-info">
 				<a><h1 style="font-size:48px;">
                     <!--<img src="images/icon.png" width="100px">-->
-				   BWEYOGERERE &emsp; ROOTS &emsp; INITIATIVE &emsp; (LTD)
+				    Kymbowa &emsp; Estate &emsp; (LTD)
                     <!--<img src="images/flag.jpeg" width="100px">-->
 					</h1>
 				</a>

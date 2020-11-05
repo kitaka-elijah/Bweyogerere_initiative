@@ -3,7 +3,7 @@
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
-	$db="bweyos";
+	$db="police_DB";
 	$mysqli = new mysqli($servername, $username, $password,$db);
     $conn = mysqli_connect($servername, $username, $password,$db);
     $db = new mysqli($servername, $username, $password,$db);
